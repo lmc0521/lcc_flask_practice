@@ -31,10 +31,18 @@
 <body>
     <h1>今年以來主要股市漲幅</h1>
 
-    {% for data in stocks %}
+    {% if stocks %}
+
+    {% for data in stocks[1:] %}
     <div class="stocks">{{data[0]}},{{data[1]}}</div>
     {% endfor %}
+
+    {% else %}
+    <h2 style="color: rgb(25, 0, 255);">系統忙碌中，請稍後再試</h2>
+
+    {% endif %}
     <!-- {{stocks}} -->
+    <a href="/">回首頁</a>
 </body>
 
 </html>

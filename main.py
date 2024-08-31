@@ -49,8 +49,6 @@ books = {
 @app.route("/stocks")
 def get_stocks():
     datas = scrape_stocks()
-    for data in datas:
-        print(data[0], data[1])
     return render_template("stocks.html", stocks=datas)
 
 
