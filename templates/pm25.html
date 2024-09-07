@@ -41,6 +41,16 @@
 <body>
     <h1>全省PM2.5資訊</h1>
     <h3 style="color: blueviolet;">目前時間:<u style="color: cadetblue;">{{data['today']}}</u></h3>
+
+    <form action="">
+        <select name="sort" id="sort">
+            <option value="true">升序</option>
+            <option value="false">降序</option>
+        </select>
+        <button type="submit">排序</button>
+    </form>
+
+    <br>
     <a href="/">回首頁</a>
     <table border="1">
         <thead>
