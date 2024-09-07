@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from datetime import datetime
-from scrape import scrape_stocks, scrape_pm25
+from scrape import scrape_stocks, scrape_pm25, get_pm25_json
+import json
 
 # print(__name__)
 
@@ -46,10 +47,44 @@ books = {
 }
 
 
-@app.route("/pm25")
+@app.route("/pm25-chart")
+def pm25_chart():
+    return render_template("pm25-chart.html")
+
+
+@app.route("/pm25-data")
+def pm25_data():
+    try:
+        json_data = get_pm25_json()
+        return json.dumps(json_data, ensure_ascii=False)
+    except Exception as e:
+        print(e)
+        return json.dumps({"result": "fail", "exception": str(e)})
+
+
+@app.route("/pm25", methods=["GET", "POST"])
 def get_pm25():
+    # GET
+    print(request.args)
+    # POST
+    print(request.form)
     today = datetime.now()
-    columns, values = scrape_pm25()
+
+    # 給定預設值
+    sort = False
+    ascending = True
+
+    if request.method == "POST":
+        # 判斷是否按排序按鈕
+        # if "sort" in request.args:
+        if "sort" in request.form:
+            # 取得select的option
+            # ascending = True if request.args.get("sort") == "true" else False
+            ascending = True if request.form.get("sort") == "true" else False
+            print(ascending)
+            sort = True
+
+    columns, values = scrape_pm25(sort, ascending)
     data = {
         "columns": columns,
         "values": values,
