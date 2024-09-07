@@ -28,6 +28,12 @@
             font-weight: bold;
             background-color: rgb(17, 160, 112);
         }
+
+        @media screen and (max-width:1024px) {
+            table {
+                width: 90%;
+            }
+        }
     </style>
 
 </head>
@@ -39,7 +45,7 @@
     <table border="1">
         <thead>
             <tr>
-                {% for th in data['columns'][:3] %}
+                {% for th in data['columns'] %}
                 <th>{{th}}</th>
                 {% endfor %}
             </tr>
@@ -47,7 +53,7 @@
         <tbody>
             {% for row in data['values'] %}
             <tr>
-                {% for data in row[:3] %}
+                {% for data in row %}
                 <td>{{data}}</td>
                 {% endfor %}
             </tr>
