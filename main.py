@@ -152,4 +152,4 @@ def getBmi(n, h, w):
     return "<h1 style='color:red'>參數錯誤</h1>"
 
 
-app.run(debug=True)
+app.run(host="0.0.0.0")
